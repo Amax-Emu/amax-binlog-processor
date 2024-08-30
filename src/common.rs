@@ -260,3 +260,17 @@ pub static VEHICLES: phf::Map<u32, Vehicle> = phf_map! {
     3658966504u32 => Vehicle { name: "Opel Astra Legendary", class: "L" },
     2898947402u32 => Vehicle { name: "BMW 1 Series Concept Race Chrome", class: "L" },
 };
+
+
+#[repr(u8)]
+enum VehicleState {
+    Unknown = 0x0,
+    Racing = 0x1,
+    Finished = 0x2,
+    TimedOut = 0x3,
+    LeftRace = 0x4,
+    Eliminated = 0x5,
+    FatallyDamaged = 0x6,
+    WaitingToStart = 0x7,
+    Max = 0x8,
+}
