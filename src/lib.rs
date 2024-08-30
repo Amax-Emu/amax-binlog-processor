@@ -1,4 +1,5 @@
 mod common;
+use common::BOT_NAMES;
 //use common::{Vehicle, CITIES, PLAYLISTS, ROUTES, VEHICLES};
 use scroll::IOread;
 
@@ -38,6 +39,8 @@ pub struct PlayerData {
     pub starting_position: u8,
     pub finish_position: u8,
     pub finish_state: u8,
+
+    pub is_bot: bool,
 
     pub unk1: f32,
     pub unk2: u32,
@@ -84,6 +87,10 @@ pub fn parse_general_log(log_data: Vec<u8>) -> Result<GeneralRaceLog, scroll::Er
             .trim_matches(char::from(0))
             .to_owned();
 
+        
+
+        let is_bot = BOT_NAMES.contains(&username.to_lowercase().as_str());
+
         let dw_id = log.ioread::<u64>()?;
 
         let unk1 = log.ioread::<f32>()?;
@@ -125,6 +132,8 @@ pub fn parse_general_log(log_data: Vec<u8>) -> Result<GeneralRaceLog, scroll::Er
             starting_position,
             finish_position,
             finish_state,
+
+            is_bot,
 
             unk1,
             unk2,
