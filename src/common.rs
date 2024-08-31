@@ -47,7 +47,7 @@ pub static CITIES: phf::Map<u32, City> = phf_map! {
 };
 
 
-static POWER_UPS: phf::Map<i32, &'static str> = phf_map! {
+pub static POWER_UPS: phf::Map<i32, &'static str> = phf_map! {
     -1i32 => "none",
     0x0i32 => "iron_fist",
     0x1i32 => "jump_the_gun",
