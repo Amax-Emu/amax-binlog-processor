@@ -29,9 +29,9 @@ pub struct PlayerData {
     pub username: String,
     pub dw_id: u64,
     pub traveled_distance: f32,
-    pub mod1_id: u32,
-    pub mod2_id: u32,
-    pub mod3_id: u32,
+    pub mod1_id: i32,
+    pub mod2_id: i32,
+    pub mod3_id: i32,
     pub level: u32,
     pub legend: u32,
     pub vehicle_id: u32,
@@ -87,8 +87,6 @@ pub fn parse_general_log(log_data: Vec<u8>) -> Result<GeneralRaceLog, scroll::Er
             .trim_matches(char::from(0))
             .to_owned();
 
-        
-
         let is_bot = BOT_NAMES.contains(&username.to_lowercase().as_str());
 
         let dw_id = log.ioread::<u64>()?;
@@ -96,9 +94,10 @@ pub fn parse_general_log(log_data: Vec<u8>) -> Result<GeneralRaceLog, scroll::Er
         let unk1 = log.ioread::<f32>()?;
         let traveled_distance = log.ioread::<f32>()?;
 
-        let mod1_id = log.ioread::<u32>()?;
-        let mod2_id = log.ioread::<u32>()?;
-        let mod3_id = log.ioread::<u32>()?;
+        // -1 (0xFFFFFFFF) equal no mod equiped
+        let mod1_id = log.ioread::<i32>()?;
+        let mod2_id = log.ioread::<i32>()?;
+        let mod3_id = log.ioread::<i32>()?;
 
         let level = log.ioread::<u32>()?;
         let legend = log.ioread::<u32>()?;
